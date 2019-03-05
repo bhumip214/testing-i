@@ -1,22 +1,27 @@
+// created reuseable function
+const setDisplayName = item => {
+  if (item.enhancement <= 15) {
+    item.displayName = `[+${item.enhancement}] ${item.name}`;
+  } else if (item.enhancement === 16) {
+    item.displayName = `[PRI] ${item.name}`;
+  } else if (item.enhancement === 17) {
+    item.displayName = `[DUO] ${item.name}`;
+  } else if (item.enhancement === 18) {
+    item.displayName = `[TRI] ${item.name}`;
+  } else if (item.enhancement === 19) {
+    item.displayName = `[TET] ${item.name}`;
+  } else if (item.enhancement === 20) {
+    item.displayName = `[PEN] ${item.name}`;
+  }
+};
+
 // The item's enhancement increases by 1.
 //The name is updated to reflect the new enhancement level.
 const success = item => {
   if (item.enhancement < 20) {
     item.enhancement = item.enhancement + 1;
 
-    if (item.enhancement <= 15) {
-      item.displayName = `[+${item.enhancement}] ${item.name}`;
-    } else if (item.enhancement === 16) {
-      item.displayName = `[PRI] ${item.name}`;
-    } else if (item.enhancement === 17) {
-      item.displayName = `[DUO] ${item.name}`;
-    } else if (item.enhancement === 18) {
-      item.displayName = `[TRI] ${item.name}`;
-    } else if (item.enhancement === 19) {
-      item.displayName = `[TET] ${item.name}`;
-    } else if (item.enhancement === 20) {
-      item.displayName = `[PEN] ${item.name}`;
-    }
+    setDisplayName(item);
     return item;
   }
   return item;
@@ -28,7 +33,25 @@ const success = item => {
 // The name is updated to reflect the new enhancement level if it was decreased.
 // If the item's enhancement is 14 or lower, the item cannot be enhanced if the durability is below 25.
 // If the item's enhancement is 15 or higher, the item cannot be enhanced if the durability is below 10.
-const fail = item => {};
+const fail = item => {
+  if (
+    item.enhancement >= 0 &&
+    item.enhancement <= 14 &&
+    item.durability >= 25
+  ) {
+    item.durability = item.durability - 5;
+  } else if (
+    item.enhancement > 14 &&
+    item.enhancement <= 16 &&
+    item.durability >= 10
+  ) {
+    item.durability = item.durability - 10;
+  } else if (item.enhancement > 16 && item.durability >= 10) {
+    item.enhancement = item.enhancement - 1;
+    setDisplayName(item);
+  }
+  return item;
+};
 
 //durability restored to 100
 const repair = item => {

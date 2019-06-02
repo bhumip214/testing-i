@@ -1,0 +1,14 @@
+{
+  "name": "testing-i",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch --verbose"
+  },
+  "repository": "https://github.com/bhumip214/testing-i.git",
+  "author": "bhumip214 <bhumip214@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jest": "^24.1.0"
+  }
+}
